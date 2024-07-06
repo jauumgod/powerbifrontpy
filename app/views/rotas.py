@@ -26,6 +26,12 @@ def profile():
 def homepage():
     return render_template('routes/homepage.html')
 
+
+@app.route('/visaoPedidos')
+def visaoPedidos():
+    return render_template('routes/visaoPedidos.html')
+
+
 @app.route('/visaoAPagar')
 def visaoAPagar():
     return render_template('routes/visaoAPagar.html')
@@ -49,3 +55,13 @@ def visaoEmpresas():
 @app.route('/visaoVendas')
 def visaoVendas():
     return render_template('routes/visaoVendas.html')
+
+
+@app.route('/visaoCarregamentos')
+def visaoCarregamentos():
+    return render_template('routes/visaoCarregamentos.html')
+
+
+@app.route('/visaoProducao')
+def visaoProducao():
+    return render_template('routes/visaoProducao.html')
