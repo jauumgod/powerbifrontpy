@@ -1,0 +1,9 @@
+
+SECRET_KEY = '!/P4#@c*0ç4'
+DEBUG=True
+HOST='localhost'
+DB='BDTESTED7'
+USER='postgres'
+PASSW='admin'
+SQLALCHEMY_DATABASE_URI=f"mysql+pymysql://{USER}:{PASSW}@{HOST}/{DB}"
+SQLALCHEMY_TRACK_MODIFICATIONS = False
