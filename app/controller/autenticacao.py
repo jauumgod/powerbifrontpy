@@ -1,20 +1,28 @@
 from app import *
-from app.models.usuarios import User
+from models.usuarios import User
 
 
-def loginUser():
-    login_user()
-    return redirect(url_for('homepage'))
+
+def loginUser(username, password):
+    user = User.query.filter_by(username=username)
+    if not user or not check_password_hash(user.password, password):
+        flash('Por favor, verifique seu login e tente novamente.')
+        return False
+    login_user(user, remember=True)
+    return True
 
 
 def cadastroUser(username, password):
     cadastro = User(
         username = username,
-        password = password
+        password = generate_password_hash(password, method='sha256')
     )
+    user = User.query.filter_by(username=username)
+    if user:
+        return redirect(url_for('loginPage'))
     db.session.add(cadastro)
     db.session.commit()
-    return redirect(url_for('loginUser'))
+    return redirect(url_for('loginPage'))
 
 
 def update_status_bd(id):
@@ -28,7 +36,6 @@ def update_status_bd(id):
         flash(f"Registro com ID {id} não encontrado")
 
 
-@app.route("/alterarNome/<int:id>", methods=['GET','POST'])
 def alterarNome(id):
     if request.method == 'POST':
         update_status_bd(id)

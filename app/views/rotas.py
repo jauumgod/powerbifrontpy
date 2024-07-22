@@ -1,15 +1,37 @@
 from app import *
+from app.models.usuarios import User
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
-@app.route('/')
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+@app.route('/', methods=['GET', 'POST'])
 def loginPage():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    result = autenticacao.loginUser(username=username,password=password)
+    if result == True:
+        redirect(url_for('homepage'))
+    else:
+        return redirect(url_for('loginPage'))
+    
     return render_template('auth/login.html')
 
-
-@app.route('/novoUserPage')
+@app.route('/novoUserPage', methods=['GET','POST'])
 def novoUserPage():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    result = autenticacao.cadastroUser(username=username, password=password)
     return render_template('auth/novoUsuarioDisable.html')
 
+
+@app.route("/alterarNome/<int:id>", methods=['GET','POST'])
+def alterarNome(id):
+    autenticacao.alterarNome(id=id)
+    
 
 @app.route('/configuracao')
 def configuracao():

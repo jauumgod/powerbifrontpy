@@ -6,6 +6,8 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 import pymysql
 from flask_login import LoginManager, login_manager, login_required, login_user, logout_user
 import time
+from werkzeug.security import generate_password_hash, check_password_hash
+from .controller import autenticacao
 
 
 class Base(DeclarativeBase):
