@@ -7,7 +7,7 @@ import pymysql
 from flask_login import LoginManager, login_manager, login_required, login_user, logout_user
 import time
 from werkzeug.security import generate_password_hash, check_password_hash
-from .controller import autenticacao
+
 
 
 class Base(DeclarativeBase):
@@ -22,4 +22,5 @@ db.init_app(app)
 
 from .views import rotas
 from .models import usuarios
+from .controller import autenticacao
 

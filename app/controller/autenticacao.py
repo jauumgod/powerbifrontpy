@@ -1,5 +1,5 @@
 from app import *
-from models.usuarios import User
+from ..models.usuarios import User
 
 
 
