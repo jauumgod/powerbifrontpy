@@ -1,5 +1,6 @@
 from app import *
 from app.models.usuarios import User
+from ..controller import autenticacao
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -10,13 +11,14 @@ def load_user(user_id):
 
 @app.route('/', methods=['GET', 'POST'])
 def loginPage():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    result = autenticacao.loginUser(username=username,password=password)
-    if result == True:
-        redirect(url_for('homepage'))
-    else:
-        return redirect(url_for('loginPage'))
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        result = autenticacao.loginUser(username=username,password=password)
+        if result == True:
+            redirect(url_for('homepage'))
+        else:
+            return redirect(url_for('loginPage'))
     
     return render_template('auth/login.html')
 
